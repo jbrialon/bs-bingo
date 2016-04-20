@@ -1,8 +1,8 @@
 <template lang="jade">
-    #app
-      .center
-        h1 bingo bullshit
-        twodimensions(:words="words")
+#app
+  .center
+    h1 bingo bullshit
+    twodimensions(:words="words")
 </template>
 
 <script>
@@ -109,12 +109,8 @@ body {
 }
 
 .center {
-  //position: absolute;
   width:100%;
   text-align: center;
-  //top:40%;
-  //left:50%;
-  //transform:translate(-50%, -50%);
 }
 
 table {
