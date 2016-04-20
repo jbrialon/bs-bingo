@@ -1,26 +1,22 @@
 <template lang="jade">
 div
   div
-  | row : {{getRow(0)}}
+  | won : {{won}}
   div
-  | col : {{getCol(0)}}
+  | row : {{wonRows}}
+  div
+  | col : {{wonCols}}
   h2 game
   table
-    tr(v-for="x in config.row")
-      td(v-for="y in config.column", @click.stop="selectItem(x, y)", :class="{'selected': getWordFromXY(x, y).selected }")
-        {{getWordFromXY(x, y).label}}
-  h2 values
-  table
-    tr(v-for="row in selectedItems", track-by="$index")
-      td(v-for="col in row", :class="{'selected': col }", track-by="$index")
-        {{col}}
+    tr(v-for="(x, row) in selectedItems", track-by="$index")
+      td(v-for="(y, col) in row", :class="{'selected': col }", @click.stop="selectItem(x, y)", track-by="$index")
+        | {{getWordFromXY(x, y).label}}
 </template>
 <script>
 (function () {
   'use strict'
 
-  // var Vue = require('vue')
-  // var _ = require('lodash')
+  var _ = require('lodash')
 
   module.exports = {
     name: 'Set-name-here',
@@ -37,10 +33,31 @@ div
     props: ['words'],
     computed: {
       wonCols: function () {
-
+        var wonCols = []
+        for (var i = 0; i < this.config.column; i++) {
+          var result = _.every(this.getCol(i), function (bool) {
+            return bool
+          })
+          if (result) {
+            wonCols.push(result)
+          }
+        }
+        return wonCols
+      },
+      wonRows: function () {
+        var wonRows = []
+        for (var i = 0; i < this.config.row; i++) {
+          var result = _.every(this.getRow(i), function (bool) {
+            return bool
+          })
+          if (result) {
+            wonRows.push(result)
+          }
+        }
+        return wonRows
       },
       won: function () {
-
+        return this.wonRows.length > 0 || this.wonCols.length > 0
       }
     },
     beforeCompile: function () {
@@ -48,12 +65,12 @@ div
     },
     methods: {
       getRow: function (idx) {
+        return this.selectedItems[idx]
+      },
+      getCol: function (idx) {
         return this.selectedItems.map(function (value, index) {
           return value[idx]
         })
-      },
-      getCol: function (idx) {
-        return this.selectedItems[idx]
       },
       resetselectedItems: function () {
         var arr = []
@@ -70,7 +87,6 @@ div
       },
       selectItem: function (x, y) {
         this.$set('selectedItems[' + x + '][' + y + ']', !this.selectedItems[x][y])
-        // Vue.set(item, 'selected', true)
       }
     }
   }
