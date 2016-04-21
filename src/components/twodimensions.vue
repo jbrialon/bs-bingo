@@ -16,7 +16,7 @@ div
 import _ from 'lodash'
 
 module.exports = {
-  name: 'Set-name-here',
+  name: 'TwoDimensionsArray',
   // Options / Data
   data () {
     return {

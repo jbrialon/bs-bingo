@@ -2,10 +2,12 @@
 #app
   .center
     h1 bingo bullshit
-    twodimensions(:words="words")
+    twodimensions(:words="shuffledWords")
 </template>
 
 <script>
+import _ from 'lodash'
+
 export default {
   data: function () {
     return {
@@ -89,13 +91,38 @@ export default {
         },
         {
           index: 20,
-          label: 'entonnoir'
+          label: 'mapping'
+        },
+        {
+          index: 21,
+          label: 'mecanisme'
+        },
+        {
+          index: 22,
+          label: 'refactorise'
+        },
+        {
+          index: 23,
+          label: 'capitaliser'
+        },
+        {
+          index: 24,
+          label: 'contingence'
+        },
+        {
+          index: 25,
+          label: 'joker'
         }
       ]
     }
   },
   components: {
     twodimensions: require('./components/twodimensions.vue')
+  },
+  computed: {
+    shuffledWords: function () {
+      return _.shuffle(this.words)
+    }
   }
 }
 </script>
