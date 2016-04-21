@@ -1,12 +1,13 @@
 <template lang="jade">
 #app
-  .center
+  .container
     h1 bingo bullshit
     twodimensions(:words="shuffledWords")
 </template>
 
 <script>
 import _ from 'lodash'
+import '!raw!sass!materialize-css/sass/ghpages-materialize.scss'
 
 export default {
   data: function () {
@@ -128,23 +129,10 @@ export default {
 </script>
 
 <style lang="scss">
-html,
-body {
-  position: relative;
-  height: 100%;
-  font-family: 'Roboto Condensed', sans-serif;
-}
 
-.center {
-  width:100%;
-  text-align: center;
-}
-
-table {
-  border:1px solid #727272;
-  border-collapse: collapse;
-  width:50%;
-  margin:auto;
+h1 {
+  font-weight: 600;
+  text-transform: uppercase;
 }
 
 td {
@@ -153,16 +141,22 @@ td {
   height:100px;
   vertical-align: middle;
   text-align: center;
-  transition:background 200ms linear;
+  transition:all 200ms linear;
 
   &:hover {
-    background:#B6B6B6;
+    background:#90caf9;
     cursor:pointer;
+    color: white;
   }
 
   &.selected {
     background:#00BCD4;
+    color: white;
   }
+}
+tr.won td,
+td.won {
+  background:#000;
 }
 
 </style>

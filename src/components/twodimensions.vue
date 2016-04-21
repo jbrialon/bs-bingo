@@ -6,10 +6,9 @@ div
   | row : {{wonRows}}
   div
   | col : {{wonCols}}
-  h2 game
-  table
+  table.centered
     tr(v-for="(x, row) in selectedItems", track-by="$index")
-      td(v-for="(y, col) in row", :class="{'selected': col }", @click.stop="selectItem(x, y)", track-by="$index")
+      td(v-for="(y, col) in row", :class="{ 'selected': col, 'blue darken-1': col, 'blue darken-4': isColWon(y) || isRowWon(x) }", @click.stop="selectItem(x, y)", track-by="$index")
         | {{getWordFromXY(x, y).label}}
 </template>
 <script>
@@ -21,8 +20,8 @@ module.exports = {
   data () {
     return {
       config: {
-        row: 5,
-        column: 3
+        row: 3,
+        column: 5
       },
       selectedItems: []
     }
@@ -36,7 +35,7 @@ module.exports = {
           return bool
         })
         if (result) {
-          wonCols.push(result)
+          wonCols.push(i)
         }
       }
       return wonCols
@@ -48,7 +47,7 @@ module.exports = {
           return bool
         })
         if (result) {
-          wonRows.push(result)
+          wonRows.push(i)
         }
       }
       return wonRows
@@ -69,6 +68,12 @@ module.exports = {
         return value[idx]
       })
     },
+    isRowWon: function (idx) {
+      return this.wonRows.indexOf(idx) > -1
+    },
+    isColWon: function (idx) {
+      return this.wonCols.indexOf(idx) > -1
+    },
     resetselectedItems: function () {
       var arr = []
       for (var x = 0; x < this.config.row; x++) {
@@ -80,7 +85,7 @@ module.exports = {
       this.$set('selectedItems', arr)
     },
     getWordFromXY: function (x, y) {
-      return this.words[x + y]
+      return this.words[x * this.config.column + y]
     },
     selectItem: function (x, y) {
       this.$set('selectedItems[' + x + '][' + y + ']', !this.selectedItems[x][y])
