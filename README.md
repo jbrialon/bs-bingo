@@ -27,6 +27,10 @@ npm test
 ```
 
 
+## Running example
+
+[bs-bingo !](http://jbrialon.github.io/bs-bingo/dist/)
+
 ## TODO
 
 vuex
