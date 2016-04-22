@@ -88,7 +88,7 @@ export default {
         },
         {
           index: 19,
-          label: 'entonnoir'
+          label: 'captcha'
         },
         {
           index: 20,

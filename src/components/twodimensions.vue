@@ -20,7 +20,7 @@ module.exports = {
   data () {
     return {
       config: {
-        row: 3,
+        row: 5,
         column: 5
       },
       selectedItems: []
