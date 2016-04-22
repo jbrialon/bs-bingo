@@ -129,10 +129,22 @@ export default {
 </script>
 
 <style lang="scss">
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+body {
+  text-align: center;
+}
 
 h1 {
   font-weight: 600;
   text-transform: uppercase;
+}
+
+table {
+  max-width: 768px;
+  margin: 2em auto;
 }
 
 td {
@@ -142,6 +154,10 @@ td {
   vertical-align: middle;
   text-align: center;
   transition:all 200ms linear;
+  height: 0;
+  padding: 0;
+  padding-bottom: 20%;
+  position: relative;
 
   &:hover {
     background:#90caf9;
@@ -153,10 +169,47 @@ td {
     background:#00BCD4;
     color: white;
   }
+
+  .inner {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .label {
+    text-transform: uppercase;
+  }
 }
 tr.won td,
 td.won {
   background:#000;
+}
+
+#toast-container {
+  top: 10px;
+  right: 10px;
+  max-width: 300px;
+}
+
+.won-card {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 10000;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &__inner {
+    width: 300px;
+  }
 }
 
 </style>
