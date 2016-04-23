@@ -113,6 +113,10 @@ export default {
         {
           index: 25,
           label: 'joker'
+        },
+        {
+          index: 26,
+          label: 'json'
         }
       ]
     }
