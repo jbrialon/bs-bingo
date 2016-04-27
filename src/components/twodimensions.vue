@@ -4,8 +4,7 @@ div
     tr(v-for="(x, row) in matrix", track-by="$index")
       td(v-for="(y, col) in row", :class="{ 'selected': col, 'blue darken-1': col, 'blue darken-4': isColWon(y) || isRowWon(x) || isDiagonalWon(x, y) }", @click="toggleItem(x, y)", track-by="$index")
         .inner
-          .label(v-text="col")
-            | {{y}}
+          .label(v-text="getWordFromXY(x, y).label")
 </template>
 <script>
 import { isColWon, isRowWon, isDiagonalWon, getWordFromXY, toggleItem } from '../vuex/actions'
@@ -27,6 +26,7 @@ module.exports = {
 }
 </script>
 <style lang="scss" scoped>
+
 
 table {
   max-width: 768px;

@@ -35,11 +35,9 @@ export const isDiagonalWon = function ({ state }, x, y) {
 
 export const toggleItem = function ({ dispatch, state }, x, y) {
   dispatch('SET_ITEM', x, y, !state.matrix[x][y])
-  dispatch('COMPUTE_WON_ROWS')
-  dispatch('COMPUTE_WON_COLS')
-  dispatch('COMPUTE_WON_DIAGONALS')
+  dispatch('COMPUTE_WON')
 }
 
 export const getWordFromXY = function ({ state }, x, y) {
-  return state.datas[x * state.matrixSide + y]
+  return state.datas[x * state.matrix.length + y]
 }

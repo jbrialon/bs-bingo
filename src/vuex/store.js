@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import _ from 'lodash'
-import { getRow, getCol, getDiagonal } from '../utils/umatrix.js'
+import { getRowsWon, getColsWon, getDiagonalsWon } from '../utils/umatrix.js'
 
 // Make vue aware of vuex
 Vue.use(Vuex)
@@ -10,7 +10,7 @@ const state = {
   // When the app starts, count is set to 0
   datas: [],
   matrix: [],
-  matrixSide: 0,
+  won: false,
   wonCols: [],
   wonRows: [],
   wonDiagonals: [[], []]
@@ -24,50 +24,19 @@ const mutations = {
   },
   SET_MATRIX (state, matrix) {
     state.matrix = matrix
-    state.matrixSide = matrix.length
   },
   SET_ITEM (state, x, y, bool) {
     state.matrix[x].$set(y, bool)
   },
-  COMPUTE_WON_COLS ({ matrixSide, matrix, wonCols }) {
-    var wonArr = []
-    for (var i = 0; i < matrixSide; i++) {
-      var result = _.every(getCol(matrix, i), function (bool) {
-        return bool
-      })
-      if (result) {
-        wonArr.push(i)
-      }
-    }
-    state.wonCols = wonArr
-  },
-  COMPUTE_WON_ROWS  ({ matrixSide, matrix, wonRows }) {
-    var wonArr = []
-    for (var i = 0; i < matrixSide; i++) {
-      var result = _.every(getRow(matrix, i), function (bool) {
-        return bool
-      })
-      if (result) {
-        wonArr.push(i)
-      }
-    }
-    state.wonRows = wonArr
-  },
-  COMPUTE_WON_DIAGONALS ({ matrix, wonDiagonals }) {
-    var wonArr = [[], []]
-    var diagonal = _.every(getDiagonal(matrix, 'TL2BR'), function (item) {
-      return matrix[item[0]][item[1]]
-    })
-    var diagonalInvert = _.every(getDiagonal(matrix, 'TR2BL'), function (item) {
-      return matrix[item[0]][item[1]]
-    })
-    if (diagonal) {
-      wonArr[0] = getDiagonal(matrix, 'TL2BR')
-    }
-    if (diagonalInvert) {
-      wonArr[1] = getDiagonal(matrix, 'TR2BL')
-    }
-    state.wonDiagonals = wonArr
+  COMPUTE_WON (state) {
+    // WON COLS
+    state.wonCols = getRowsWon(state.matrix)
+    // WON ROWS
+    state.wonRows = getColsWon(state.matrix)
+    // WON DIAGONALS
+    state.wonDiagonals = getDiagonalsWon(state.matrix)
+    // WON
+    state.won = state.wonRows.length > 0 || state.wonCols.length > 0 || _.flatten(state.wonDiagonals).length > 0
   }
 }
 
