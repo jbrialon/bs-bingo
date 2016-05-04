@@ -65,10 +65,6 @@ module.exports = {
           limit: 10000,
           name: utils.assetsPath('[name].[hash:7].[ext]')
         }
-      },
-      {
-        test: /\.scss$/,
-        loaders: ["style", "css", 'resolve-url', "sass"]
       }
     ]
   },

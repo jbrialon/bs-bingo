@@ -8,8 +8,8 @@
 </template>
 
 <script>
+import 'materialize-css/sass/ghpages-materialize.scss'
 import _ from 'lodash'
-import '!raw!sass!materialize-css/sass/ghpages-materialize.scss'
 import store from './vuex/store' // import the store we just created
 import Debug from './components/debug'
 import Won from './components/won'
