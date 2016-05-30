@@ -12,6 +12,11 @@ module.exports = {
   },
   dev: {
     port: 3200,
-    proxyTable: {}
+    proxyTable: {
+        '/api/*': {
+          target: 'http://localhost:1337',
+          secure: false
+        }
+    }
   }
 }
