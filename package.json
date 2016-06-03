@@ -15,7 +15,9 @@
     "lodash": "^4.11.1",
     "materialize-css": "^0.97.6",
     "vue": "^1.0.18",
-    "vuex": "^0.6.3"
+    "vue-router": "^0.7.13",
+    "vuex": "^0.6.3",
+    "whatwg-fetch": "^1.0.0"
   },
   "devDependencies": {
     "babel-core": "^6.0.0",

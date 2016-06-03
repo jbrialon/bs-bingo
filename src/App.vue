@@ -1,10 +1,11 @@
 <template lang="jade">
-#app
+div
   .container
     h1 bingo bullshit
     Debug
     Won(v-if="getWon")
-    Twodimensions
+    router-view
+
 </template>
 
 <script>
