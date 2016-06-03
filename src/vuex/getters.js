@@ -5,3 +5,7 @@
 export function getWon ({ won }) {
   return won
 }
+
+export function getUser ({auth}) {
+  return auth.user
+}

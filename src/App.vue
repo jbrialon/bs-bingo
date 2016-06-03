@@ -1,6 +1,10 @@
 <template lang="jade">
 div
   .container
+    .top-bar
+      span.username(v-if="getUser") {{getUser.displayName}}
+      a(@click="signIn", v-if="getUser === null") sign in
+      a(@click="signOut", v-if="getUser !== null") sign out
     h1 bingo bullshit
     Debug
     Won(v-if="getWon")
@@ -15,8 +19,10 @@ import store from './vuex/store' // import the store we just created
 import Debug from './components/debug'
 import Won from './components/won'
 import Twodimensions from './components/twodimensions'
-import { setMatrix, setDatas } from './vuex/actions'
-import { getWon } from './vuex/getters'
+import { setMatrix, setDatas, signIn, signOut } from './vuex/actions'
+import { getWon, getUser } from './vuex/getters'
+
+import AuthService from './services/auth'
 
 export default {
   data: function () {
@@ -138,13 +144,32 @@ export default {
     this.setDatas(_.shuffle(this.words)) // TODO shuffle should be server side
     this.setMatrix(5)
   },
+  methods: {
+    signIn () {
+      let self = this
+      AuthService.signIn()
+        .then(function (user) {
+          self.signInAction(user)
+        })
+    },
+    signOut () {
+      let self = this
+      AuthService.signOut()
+        .then(function () {
+          self.signOutAction()
+        })
+    }
+  },
   vuex: {
     getters: {
-      getWon
+      getWon,
+      getUser
     },
     actions: {
       setMatrix,
-      setDatas
+      setDatas,
+      signInAction: signIn,
+      signOutAction: signOut
     }
   },
   store // make this and all child components aware of the new store
@@ -164,5 +189,8 @@ h1 {
   font-weight: 600;
   text-transform: uppercase;
 }
+  .username {
+    padding-right: 15px;
+  }
 
 </style>

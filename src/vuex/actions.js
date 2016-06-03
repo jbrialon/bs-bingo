@@ -41,3 +41,11 @@ export const toggleItem = function ({ dispatch, state }, x, y) {
 export const getWordFromXY = function ({ state }, x, y) {
   return state.datas[x * state.matrix.length + y]
 }
+
+export const signIn = function ({dispatch}, user) {
+  dispatch('SIGN_IN', user)
+}
+
+export const signOut = function ({dispatch}) {
+  dispatch('SIGN_OUT')
+}

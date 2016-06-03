@@ -13,7 +13,10 @@ const state = {
   won: false,
   wonCols: [],
   wonRows: [],
-  wonDiagonals: [[], []]
+  wonDiagonals: [[], []],
+  auth: {
+    user: null
+  }
 }
 
 const mutations = {
@@ -37,7 +40,14 @@ const mutations = {
     state.wonDiagonals = getDiagonalsWon(state.matrix)
     // WON
     state.won = state.wonRows.length > 0 || state.wonCols.length > 0 || _.flatten(state.wonDiagonals).length > 0
+  },
+  SIGN_IN (state, user) {
+    state.auth.user = user
+  },
+  SIGN_OUT (state) {
+    state.auth.user = null
   }
+
 }
 
 // We combine the intial state and the mutations to create a vuex store.
