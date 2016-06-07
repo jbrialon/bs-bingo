@@ -4,6 +4,7 @@ import Router from 'vue-router'
 
 import Home from './components/home.vue'
 import Game from './components/game.vue'
+import Words from './components/words.vue'
 
 import contants from './contants'
 
@@ -33,6 +34,12 @@ router.map({
   '/:name': {
     name: 'game',
     component: Game
+  }
+})
+router.map({
+  '/words': {
+    name: 'words',
+    component: Words
   }
 })
 router.start(App, '#app')
